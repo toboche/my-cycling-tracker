@@ -39,6 +39,10 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     testImplementation 'junit:junit:4.+'
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.23.0'
+    testImplementation group: 'org.mockito', name: 'mockito-inline', version: '2.23.0'
+    testImplementation group: 'org.assertj', name: 'assertj-core', version: '2.9.0'
+    testImplementation group: 'com.nhaarman', name: 'mockito-kotlin-kt1.1', version: '1.6.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
