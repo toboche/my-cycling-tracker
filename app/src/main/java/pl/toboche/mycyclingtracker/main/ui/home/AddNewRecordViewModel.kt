@@ -34,4 +34,8 @@ class AddNewRecordViewModel(
         }
         _date.postValue(newDate)
     }
+
+    fun save() {
+        //TODO
+    }
 }

@@ -27,12 +27,16 @@ class AddNewRecordFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_add_new_record, container, false)
         val dateText: TextView = root.findViewById(R.id.add_new_record_date_description)
         val changeDateButton: Button = root.findViewById(R.id.add_new_record_change_date_button)
+        val saveButton: Button = root.findViewById(R.id.add_new_record_save_button)
         addNewRecordViewModel.dateText.observe(viewLifecycleOwner) {
             dateText.text = it
         }
         changeDateButton.setOnClickListener {
             DatePickerFragment()
                 .show(childFragmentManager, "datePicker")
+        }
+        saveButton.setOnClickListener {
+            addNewRecordViewModel.save()
         }
         return root
     }
