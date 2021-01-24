@@ -1,6 +1,6 @@
 package pl.toboche.mycyclingtracker.base
 
-import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockitokotlin2.mock
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 

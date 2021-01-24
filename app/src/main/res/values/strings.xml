@@ -4,4 +4,7 @@
     <string name="title_add_new_record">Add New</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="add_record_title">Fill in the data to add a new cycling record</string>
+    <string name="record_name_hint">record name</string>
+    <string name="change_date_button_title">change date</string>
 </resources>
