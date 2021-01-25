@@ -1,15 +1,17 @@
 package pl.toboche.mycyclingtracker.main.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.map
+import android.util.Log
+import androidx.lifecycle.*
+import kotlinx.coroutines.launch
+import pl.toboche.mycyclingtracker.data.source.TrackRecordRepository
+import pl.toboche.mycyclingtracker.data.source.local.TrackRecord
 import pl.toboche.mycyclingtracker.main.ui.service.date.CalendarApi
 import java.text.SimpleDateFormat
 import java.util.*
 
 class AddNewRecordViewModel(
-    private val calendarApi: CalendarApi
+    private val calendarApi: CalendarApi,
+    private val trackRecordRepository: TrackRecordRepository
 ) : ViewModel() {
 
     val name = MutableLiveData<String>().apply {
@@ -35,7 +37,18 @@ class AddNewRecordViewModel(
         _date.postValue(newDate)
     }
 
+    //TODO
+//    @RequiresApi(Build.VERSION_CODES.O)
     fun save() {
-        //TODO
+        viewModelScope.launch {
+            trackRecordRepository.saveTrackRecord(
+                TrackRecord(
+                    title = name.value!!,
+                    comments = "comments.value",
+                    date = Date.from(_date.value!!.toInstant())
+                )
+            )
+            Log.d("asdasd", "save: " + trackRecordRepository.getTrackRecords())
+        }
     }
 }
