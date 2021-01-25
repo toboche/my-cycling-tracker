@@ -18,11 +18,14 @@ class AddNewRecordViewModel(
         value = ""
     }
 
+    val comments = MutableLiveData<String>().apply {
+        value = ""
+    }
+
     private val _date = MutableLiveData<Calendar>().apply {
         value = calendarApi.getNow()
     }
     val date: LiveData<Calendar> = _date
-
     val dateText = _date.map {
         SimpleDateFormat.getDateInstance()
             .format(it.time)
@@ -38,13 +41,16 @@ class AddNewRecordViewModel(
     }
 
     //TODO
-//    @RequiresApi(Build.VERSION_CODES.O)
     fun save() {
+        if (name.value.isNullOrEmpty()) {
+            //TODO: show error missing name
+            return
+        }
         viewModelScope.launch {
             trackRecordRepository.saveTrackRecord(
                 TrackRecord(
-                    title = name.value!!,
-                    comments = "comments.value",
+                    title = name.value.orEmpty(),
+                    comments = comments.value,
                     date = Date.from(_date.value!!.toInstant())
                 )
             )

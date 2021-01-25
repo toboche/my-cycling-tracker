@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
@@ -39,6 +41,8 @@ class AddNewRecordFragment : Fragment() {
         val dateText: TextView = root.findViewById(R.id.add_new_record_date_description)
         val changeDateButton: Button = root.findViewById(R.id.add_new_record_change_date_button)
         val saveButton: Button = root.findViewById(R.id.add_new_record_save_button)
+        val nameEditText: EditText = root.findViewById(R.id.add_new_record_name)
+        val commentsEditText: EditText = root.findViewById(R.id.add_new_record_comments)
         addNewRecordViewModel.dateText.observe(viewLifecycleOwner) {
             dateText.text = it
         }
@@ -48,6 +52,18 @@ class AddNewRecordFragment : Fragment() {
         }
         saveButton.setOnClickListener {
             addNewRecordViewModel.save()
+        }
+        nameEditText.addTextChangedListener {
+            if (it == null) {
+                return@addTextChangedListener
+            }
+            addNewRecordViewModel.name.value = it.toString()
+        }
+        commentsEditText.addTextChangedListener {
+            if (it == null) {
+                return@addTextChangedListener
+            }
+            addNewRecordViewModel.comments.value = it.toString()
         }
         return root
     }

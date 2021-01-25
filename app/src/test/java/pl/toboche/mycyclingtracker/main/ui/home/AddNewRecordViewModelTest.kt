@@ -5,11 +5,15 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verifyZeroInteractions
+import kotlinx.coroutines.runBlocking
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
+import pl.toboche.mycyclingtracker.data.source.TrackRecordRepository
+import pl.toboche.mycyclingtracker.data.source.local.TrackRecord
 import pl.toboche.mycyclingtracker.main.ui.service.date.CalendarService
 import pl.toboche.mycyclingtracker.testing.getOrAwaitValue
 import java.util.*
@@ -28,7 +32,13 @@ class AddNewRecordViewModelTest {
     val mockCalendarService: CalendarService = mock {
         on { getNow() } doReturn mockNow
     }
-    val systemUnderTest = AddNewRecordViewModel(mockCalendarService)
+    val mockTrackRecordRepository: TrackRecordRepository = mock {
+
+    }
+    val systemUnderTest = AddNewRecordViewModel(
+        mockCalendarService,
+        mockTrackRecordRepository
+    )
 
     @Test
     fun `initial date set to today`() {
@@ -42,5 +52,38 @@ class AddNewRecordViewModelTest {
 
         assertThat(systemUnderTest.dateText.getOrAwaitValue())
             .isEqualTo("Mar 12, 2010")
+    }
+
+    @Test
+    fun `does not save when title empty`() {
+        systemUnderTest.save()
+
+        verifyZeroInteractions(mockTrackRecordRepository)
+    }
+
+    @Test
+    fun `save new record when all data provided`() {
+        val expectedName = "expected name"
+        val expectedComments = "expected comments"
+        val expectedDate = Calendar.getInstance().apply {
+            set(Calendar.YEAR, 2010)
+            set(Calendar.MONTH, 2)
+            set(Calendar.DAY_OF_MONTH, 12)
+        }
+        systemUnderTest.setDate(2010, 2, 12)
+        systemUnderTest.name.value = expectedName
+        systemUnderTest.comments.value = expectedComments
+        systemUnderTest.save()
+
+        runBlocking {
+            mockTrackRecordRepository.saveTrackRecord(
+                TrackRecord(
+                    uid = null,
+                    title = expectedName,
+                    comments = expectedComments,
+                    date = expectedDate.time
+                )
+            )
+        }
     }
 }
