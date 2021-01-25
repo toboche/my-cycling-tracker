@@ -1,4 +1,4 @@
-package pl.toboche.mycyclingtracker.main.ui.datepicker
+package pl.toboche.mycyclingtracker
 
 import android.app.DatePickerDialog
 import android.app.Dialog
@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
-import pl.toboche.mycyclingtracker.main.ui.home.AddNewRecordViewModel
+import pl.toboche.mycyclingtracker.home.AddNewRecordViewModel
 import java.util.*
 
 class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {

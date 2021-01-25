@@ -1,4 +1,4 @@
-package pl.toboche.mycyclingtracker.main.ui.dashboard
+package pl.toboche.mycyclingtracker
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

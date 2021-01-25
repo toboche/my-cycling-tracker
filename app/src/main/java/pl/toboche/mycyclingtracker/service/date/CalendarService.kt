@@ -1,4 +1,4 @@
-package pl.toboche.mycyclingtracker.main.ui.service.date
+package pl.toboche.mycyclingtracker.service.date
 
 import java.util.*
 

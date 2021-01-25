@@ -12,7 +12,7 @@
         android:theme="@style/Theme.MyCyclingTracker">
 
         <activity
-            android:name=".main.MainActivity"
+            android:name="pl.toboche.mycyclingtracker.ui.MainActivity"
             android:label="@string/title_activity_main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,4 @@
-package pl.toboche.mycyclingtracker.main.ui.dashboard
+package pl.toboche.mycyclingtracker
 
 import android.os.Build
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule

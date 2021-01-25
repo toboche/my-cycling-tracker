@@ -1,4 +1,4 @@
-package pl.toboche.mycyclingtracker.main
+package pl.toboche.mycyclingtracker.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

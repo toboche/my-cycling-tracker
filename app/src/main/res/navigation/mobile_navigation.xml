@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="pl.toboche.mycyclingtracker.main.ui.home.AddNewRecordFragment"
+        android:name="pl.toboche.mycyclingtracker.home.AddNewRecordFragment"
         android:label="@string/title_add_new_record"
         tools:layout="@layout/fragment_add_new_record" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="pl.toboche.mycyclingtracker.main.ui.dashboard.DashboardFragment"
+        android:name="pl.toboche.mycyclingtracker.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 </navigation>

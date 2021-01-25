@@ -1,4 +1,4 @@
-package pl.toboche.mycyclingtracker.main.ui.home
+package pl.toboche.mycyclingtracker.home
 
 import android.os.Build
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
@@ -14,7 +14,7 @@ import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 import pl.toboche.mycyclingtracker.data.source.TrackRecordRepository
 import pl.toboche.mycyclingtracker.data.source.local.TrackRecord
-import pl.toboche.mycyclingtracker.main.ui.service.date.CalendarService
+import pl.toboche.mycyclingtracker.service.date.CalendarService
 import pl.toboche.mycyclingtracker.testing.getOrAwaitValue
 import java.util.*
 

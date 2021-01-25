@@ -1,4 +1,4 @@
-package pl.toboche.mycyclingtracker.main.ui.service.date
+package pl.toboche.mycyclingtracker.service.date
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test

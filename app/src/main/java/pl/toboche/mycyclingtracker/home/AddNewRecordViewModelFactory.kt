@@ -1,9 +1,9 @@
-package pl.toboche.mycyclingtracker.main.ui.home
+package pl.toboche.mycyclingtracker.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import pl.toboche.mycyclingtracker.data.source.TrackRecordRepository
-import pl.toboche.mycyclingtracker.main.ui.service.date.CalendarApi
+import pl.toboche.mycyclingtracker.service.date.CalendarApi
 
 class AddNewRecordViewModelFactory(
     private val calendarApi: CalendarApi,

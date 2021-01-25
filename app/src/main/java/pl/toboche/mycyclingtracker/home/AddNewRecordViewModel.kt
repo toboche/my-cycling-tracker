@@ -1,11 +1,10 @@
-package pl.toboche.mycyclingtracker.main.ui.home
+package pl.toboche.mycyclingtracker.home
 
-import android.util.Log
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import pl.toboche.mycyclingtracker.data.source.TrackRecordRepository
 import pl.toboche.mycyclingtracker.data.source.local.TrackRecord
-import pl.toboche.mycyclingtracker.main.ui.service.date.CalendarApi
+import pl.toboche.mycyclingtracker.service.date.CalendarApi
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -54,7 +53,6 @@ class AddNewRecordViewModel(
                     date = Date.from(_date.value!!.toInstant())
                 )
             )
-            Log.d("asdasd", "save: " + trackRecordRepository.getTrackRecords())
         }
     }
 }

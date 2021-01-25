@@ -1,4 +1,4 @@
-package pl.toboche.mycyclingtracker.main.ui.home
+package pl.toboche.mycyclingtracker.home
 
 import android.content.Context
 import android.os.Bundle
@@ -17,8 +17,8 @@ import pl.toboche.mycyclingtracker.data.source.DefaultTrackRecordRepository
 import pl.toboche.mycyclingtracker.data.source.LocalTrackRecordDataSource
 import pl.toboche.mycyclingtracker.data.source.TrackRecordRepository
 import pl.toboche.mycyclingtracker.data.source.local.TrackRecordDatabase
-import pl.toboche.mycyclingtracker.main.ui.datepicker.DatePickerFragment
-import pl.toboche.mycyclingtracker.main.ui.service.date.CalendarService
+import pl.toboche.mycyclingtracker.DatePickerFragment
+import pl.toboche.mycyclingtracker.service.date.CalendarService
 
 class AddNewRecordFragment : Fragment() {
 
