@@ -62,6 +62,18 @@ class AddNewRecordViewModelTest {
     }
 
     @Test
+    fun `does not clear comments when title empty`() {
+        val expectedComments = "expected comments"
+
+        systemUnderTest.comments.value = expectedComments
+
+        systemUnderTest.save()
+
+        verifyZeroInteractions(mockTrackRecordRepository)
+        assertThat(systemUnderTest.comments.value).isEqualTo(expectedComments)
+    }
+
+    @Test
     fun `save new record when all data provided`() {
         val expectedName = "expected name"
         val expectedComments = "expected comments"
@@ -86,4 +98,28 @@ class AddNewRecordViewModelTest {
             )
         }
     }
+
+    @Test
+    fun `clear input data when saving`() {
+        val expectedName = "expected name"
+        val expectedComments = "expected comments"
+        systemUnderTest.setDate(2010, 2, 12)
+        systemUnderTest.name.value = expectedName
+        systemUnderTest.comments.value = expectedComments
+        systemUnderTest.save()
+
+        runBlocking {
+            mockTrackRecordRepository.saveTrackRecord(
+                TrackRecord(
+                    uid = null,
+                    title = expectedName,
+                    comments = expectedComments,
+                    date = mockNow.time
+                )
+            )
+        }
+        assertThat(systemUnderTest.comments.value).isEqualTo("")
+        assertThat(systemUnderTest.name.value).isEqualTo("")
+    }
+
 }

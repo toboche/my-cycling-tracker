@@ -39,7 +39,6 @@ class AddNewRecordViewModel(
         _date.postValue(newDate)
     }
 
-    //TODO
     fun save() {
         if (name.value.isNullOrEmpty()) {
             //TODO: show error missing name
@@ -53,6 +52,8 @@ class AddNewRecordViewModel(
                     date = Date.from(_date.value!!.toInstant())
                 )
             )
+            name.value = ""
+            comments.value = ""
         }
     }
 }

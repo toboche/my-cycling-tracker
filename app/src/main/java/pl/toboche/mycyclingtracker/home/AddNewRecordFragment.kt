@@ -12,12 +12,12 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
+import pl.toboche.mycyclingtracker.DatePickerFragment
 import pl.toboche.mycyclingtracker.R
 import pl.toboche.mycyclingtracker.data.source.DefaultTrackRecordRepository
 import pl.toboche.mycyclingtracker.data.source.LocalTrackRecordDataSource
 import pl.toboche.mycyclingtracker.data.source.TrackRecordRepository
 import pl.toboche.mycyclingtracker.data.source.local.TrackRecordDatabase
-import pl.toboche.mycyclingtracker.DatePickerFragment
 import pl.toboche.mycyclingtracker.service.date.CalendarService
 
 class AddNewRecordFragment : Fragment() {
@@ -43,9 +43,19 @@ class AddNewRecordFragment : Fragment() {
         val saveButton: Button = root.findViewById(R.id.add_new_record_save_button)
         val nameEditText: EditText = root.findViewById(R.id.add_new_record_name)
         val commentsEditText: EditText = root.findViewById(R.id.add_new_record_comments)
-        addNewRecordViewModel.dateText.observe(viewLifecycleOwner) {
-            dateText.text = it
-        }
+
+        addNewRecordViewModel.dateText.observe(viewLifecycleOwner) { dateText.text = it }
+        addNewRecordViewModel.name.observe(viewLifecycleOwner, {
+            if (it != nameEditText.text.toString()) {
+                nameEditText.setText(it)
+            }
+        })
+        addNewRecordViewModel.comments.observe(viewLifecycleOwner, {
+            if (it != commentsEditText.text.toString()) {
+                commentsEditText.setText(it)
+            }
+        })
+
         changeDateButton.setOnClickListener {
             DatePickerFragment()
                 .show(childFragmentManager, "datePicker")
