@@ -56,7 +56,6 @@ class DashboardViewModelTest {
 
     @Test
     fun `map data properly`() {
-
         givenRepositoryReturnsSingleValue()
 
         systemUnderTest.loadTrackRecords()

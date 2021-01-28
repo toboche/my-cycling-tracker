@@ -18,14 +18,11 @@ class DashboardViewModel @Inject constructor(
         MutableLiveData<List<TrackRecordItem>>()
 
     fun loadTrackRecords() {
-        println("asda1")
         viewModelScope.launch {
             trackRecordRepository.getTrackRecords().apply {
                 when (this) {
                     is Result.Success -> {
-                        println("success")
                         val mapToItem = mapToItem(this.data)
-                        println(mapToItem)
                         trackRecords.value = mapToItem
                     }
                     is Result.Error -> showErrorReadingData()
@@ -36,8 +33,6 @@ class DashboardViewModel @Inject constructor(
     }
 
     private fun mapToItem(data: List<TrackRecord>): List<TrackRecordItem> {
-        println(data)
-        println("aaaaaaa")
         return data.map {
             TrackRecordItem(
                 title = it.title,
