@@ -67,6 +67,16 @@ class AddNewRecordViewModelTest {
     }
 
     @Test
+    fun `show error when empty distance`() {
+        systemUnderTest.name.value = "some title"
+
+        systemUnderTest.save()
+
+        assertThat(systemUnderTest.errorText.getOrAwaitValue())
+            .isEqualTo("please provide distance")
+    }
+
+    @Test
     fun `does not clear comments when title empty`() {
         val expectedComments = "expected comments"
 

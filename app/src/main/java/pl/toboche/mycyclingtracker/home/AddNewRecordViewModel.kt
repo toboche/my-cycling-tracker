@@ -51,7 +51,7 @@ class AddNewRecordViewModel @Inject constructor(
             return
         }
         if (distance.value.isNullOrEmpty()) {
-            //TODO: show error illegal distance
+            errorText.value = "please provide distance"
             return
         }
         val distanceValue = distance.value!!
