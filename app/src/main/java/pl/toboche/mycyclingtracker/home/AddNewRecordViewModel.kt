@@ -34,6 +34,8 @@ class AddNewRecordViewModel @Inject constructor(
             .format(it.time)
     }
 
+    val errorText = MutableLiveData<String?>()
+
     fun setDate(year: Int, month: Int, day: Int) {
         val newDate = calendarApi.getNow().apply {
             set(Calendar.YEAR, year)
@@ -45,7 +47,7 @@ class AddNewRecordViewModel @Inject constructor(
 
     fun save() {
         if (name.value.isNullOrEmpty()) {
-            //TODO: show error missing name
+            errorText.value = "please provide a title"
             return
         }
         if (distance.value.isNullOrEmpty()) {

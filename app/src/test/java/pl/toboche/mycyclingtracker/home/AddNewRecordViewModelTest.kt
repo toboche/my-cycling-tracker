@@ -59,6 +59,14 @@ class AddNewRecordViewModelTest {
     }
 
     @Test
+    fun `show error when empty title`() {
+        systemUnderTest.save()
+
+        assertThat(systemUnderTest.errorText.getOrAwaitValue())
+            .isEqualTo("please provide a title")
+    }
+
+    @Test
     fun `does not clear comments when title empty`() {
         val expectedComments = "expected comments"
 

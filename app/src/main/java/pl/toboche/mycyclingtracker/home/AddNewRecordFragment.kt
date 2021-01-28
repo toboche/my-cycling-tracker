@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -40,6 +41,7 @@ class AddNewRecordFragment : Fragment() {
         observeNameText(nameEditText)
         observeDistanceText(distanceEditText)
         observeCommentsText(commentsEditText)
+        observeErrorText()
 
         openDatePickerWhenChangeDateButtonClicked(changeDateButton)
         saveEntryWhenSaveButtonClicked(saveButton)
@@ -47,6 +49,15 @@ class AddNewRecordFragment : Fragment() {
         updateViewModelWhenDistanceTextChanged(distanceEditText)
         updateViewModelWhenCommentsChanged(commentsEditText)
         return root
+    }
+
+    private fun observeErrorText() {
+        addNewRecordViewModel.errorText.observe(viewLifecycleOwner, {
+            if (it != null) {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+                addNewRecordViewModel.errorText.value = null
+            }
+        })
     }
 
     private fun updateViewModelWhenCommentsChanged(commentsEditText: EditText) {
