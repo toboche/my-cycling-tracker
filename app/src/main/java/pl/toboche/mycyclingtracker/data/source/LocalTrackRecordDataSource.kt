@@ -6,10 +6,11 @@ import kotlinx.coroutines.withContext
 import pl.toboche.mycyclingtracker.data.source.local.Result
 import pl.toboche.mycyclingtracker.data.source.local.TrackRecord
 import pl.toboche.mycyclingtracker.data.source.local.TrackRecordDao
+import javax.inject.Inject
 
-class LocalTrackRecordDataSource(
+class LocalTrackRecordDataSource @Inject constructor(
     private val trackRecordDao: TrackRecordDao,
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val ioDispatcher: CoroutineDispatcher
 ) : TrackRecordDataSource {
     override suspend fun getTrackRecords(): Result<List<TrackRecord>> = withContext(ioDispatcher) {
         return@withContext try {

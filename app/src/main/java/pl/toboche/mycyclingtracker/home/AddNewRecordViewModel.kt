@@ -7,13 +7,17 @@ import pl.toboche.mycyclingtracker.data.source.local.TrackRecord
 import pl.toboche.mycyclingtracker.service.date.CalendarApi
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
-class AddNewRecordViewModel(
+class AddNewRecordViewModel @Inject constructor(
     private val calendarApi: CalendarApi,
     private val trackRecordRepository: TrackRecordRepository
 ) : ViewModel() {
 
     val name = MutableLiveData<String>().apply {
+        value = ""
+    }
+    val distance = MutableLiveData<String>().apply {
         value = ""
     }
 
@@ -44,16 +48,27 @@ class AddNewRecordViewModel(
             //TODO: show error missing name
             return
         }
+        if (distance.value.isNullOrEmpty()) {
+            //TODO: show error illegal distance
+            return
+        }
+        val distanceValue = distance.value!!
+        if (distanceValue.toDoubleOrNull() == null) {
+            //TODO show error bad input
+            return
+        }
         viewModelScope.launch {
             trackRecordRepository.saveTrackRecord(
                 TrackRecord(
                     title = name.value.orEmpty(),
                     comments = comments.value,
-                    date = Date.from(_date.value!!.toInstant())
+                    date = Date.from(_date.value!!.toInstant()),
+                    distance = distanceValue.toDouble()
                 )
             )
             name.value = ""
             comments.value = ""
+            distance.value = ""
         }
     }
 }

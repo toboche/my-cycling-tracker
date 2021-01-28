@@ -3,9 +3,7 @@ package pl.toboche.mycyclingtracker.home
 import android.os.Build
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.verifyZeroInteractions
+import com.nhaarman.mockitokotlin2.*
 import kotlinx.coroutines.runBlocking
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Rule
@@ -32,9 +30,8 @@ class AddNewRecordViewModelTest {
     val mockCalendarService: CalendarService = mock {
         on { getNow() } doReturn mockNow
     }
-    val mockTrackRecordRepository: TrackRecordRepository = mock {
+    val mockTrackRecordRepository: TrackRecordRepository = mock()
 
-    }
     val systemUnderTest = AddNewRecordViewModel(
         mockCalendarService,
         mockTrackRecordRepository
@@ -77,6 +74,7 @@ class AddNewRecordViewModelTest {
     fun `save new record when all data provided`() {
         val expectedName = "expected name"
         val expectedComments = "expected comments"
+        val expectedDistance = "1.1"
         val expectedDate = Calendar.getInstance().apply {
             set(Calendar.YEAR, 2010)
             set(Calendar.MONTH, 2)
@@ -85,16 +83,22 @@ class AddNewRecordViewModelTest {
         systemUnderTest.setDate(2010, 2, 12)
         systemUnderTest.name.value = expectedName
         systemUnderTest.comments.value = expectedComments
+        systemUnderTest.distance.value = expectedDistance
+        systemUnderTest.setDate(2010, 2, 12)
+
         systemUnderTest.save()
 
         runBlocking {
-            mockTrackRecordRepository.saveTrackRecord(
-                TrackRecord(
-                    uid = null,
-                    title = expectedName,
-                    comments = expectedComments,
-                    date = expectedDate.time
-                )
+            verify(mockTrackRecordRepository).saveTrackRecord(
+                argThat {
+                    this.uid == null
+                            && this.title == expectedName
+                            && this.comments == expectedComments
+                            && this.date.year == expectedDate.time.year
+                            && this.date.month == expectedDate.time.month
+                            && this.date.day == expectedDate.time.day
+                            && this.distance == 1.1
+                }
             )
         }
     }
@@ -103,23 +107,27 @@ class AddNewRecordViewModelTest {
     fun `clear input data when saving`() {
         val expectedName = "expected name"
         val expectedComments = "expected comments"
+        val expectedDistance = "1.1"
         systemUnderTest.setDate(2010, 2, 12)
         systemUnderTest.name.value = expectedName
         systemUnderTest.comments.value = expectedComments
+        systemUnderTest.distance.value = expectedDistance
+
         systemUnderTest.save()
 
         runBlocking {
-            mockTrackRecordRepository.saveTrackRecord(
+            verify(mockTrackRecordRepository).saveTrackRecord(
                 TrackRecord(
                     uid = null,
                     title = expectedName,
                     comments = expectedComments,
-                    date = mockNow.time
+                    date = mockNow.time,
+                    distance = 1.1
                 )
             )
         }
         assertThat(systemUnderTest.comments.value).isEqualTo("")
         assertThat(systemUnderTest.name.value).isEqualTo("")
+        assertThat(systemUnderTest.distance.value).isEqualTo("")
     }
-
 }

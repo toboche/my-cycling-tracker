@@ -7,5 +7,5 @@ import androidx.room.TypeConverters
 @Database(entities = [TrackRecord::class], version = 1)
 @TypeConverters(Converters::class)
 abstract class TrackRecordDatabase : RoomDatabase() {
-    abstract fun userDao(): TrackRecordDao
+    abstract fun trackRecorderDao(): TrackRecordDao
 }

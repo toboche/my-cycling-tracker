@@ -12,4 +12,6 @@
     <string name="comments">Comments:</string>
     <string name="record_comments_hint">put your comments here</string>
     <string name="save_button_title">Save</string>
+    <string name="distance">distance</string>
+    <string name="record_distance_hint">enter distance</string>
 </resources>

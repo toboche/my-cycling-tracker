@@ -3,6 +3,7 @@
     package="pl.toboche.mycyclingtracker">
 
     <application
+        android:name=".ui.CyclingTrackRecordsApplication"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"

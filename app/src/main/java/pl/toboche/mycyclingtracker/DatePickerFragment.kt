@@ -5,17 +5,22 @@ import android.app.Dialog
 import android.os.Bundle
 import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
+import dagger.hilt.android.AndroidEntryPoint
 import pl.toboche.mycyclingtracker.home.AddNewRecordViewModel
+import pl.toboche.mycyclingtracker.home.AddNewRecordViewModelFactory
 import java.util.*
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
 
-    private lateinit var addNewRecordViewModel: AddNewRecordViewModel
+    @Inject
+    lateinit var addNewRecordViewModelFactory: AddNewRecordViewModelFactory
+
+    val addNewRecordViewModel: AddNewRecordViewModel by activityViewModels { addNewRecordViewModelFactory }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        addNewRecordViewModel =
-            ViewModelProvider(requireActivity()).get(AddNewRecordViewModel::class.java)
         val c = addNewRecordViewModel.date.value!!
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)

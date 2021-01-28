@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="8dp"
+    android:layout_margin="@dimen/screen_internal_margin"
     tools:context=".home.AddNewRecordFragment">
 
     <TextView
@@ -18,12 +18,32 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/add_new_record_distance_title"
+        style="@style/AddNewRecordTitle"
+        android:text="@string/distance"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/add_new_record_title" />
+
+    <EditText
+        android:id="@+id/add_new_record_distance"
+        android:inputType="numberDecimal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/record_distance_hint"
+        android:lines="1"
+        android:textSize="@dimen/editable_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_new_record_distance_title" />
+
+    <TextView
         android:id="@+id/add_new_record_name_title"
         style="@style/AddNewRecordTitle"
         android:text="@string/title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/add_new_record_title" />
+        app:layout_constraintTop_toBottomOf="@id/add_new_record_distance" />
 
     <EditText
         android:id="@+id/add_new_record_name"
