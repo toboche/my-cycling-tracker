@@ -18,7 +18,7 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
     @Inject
     lateinit var addNewRecordViewModelFactory: AddNewRecordViewModelFactory
 
-    val addNewRecordViewModel: AddNewRecordViewModel by activityViewModels { addNewRecordViewModelFactory }
+    private val addNewRecordViewModel: AddNewRecordViewModel by activityViewModels { addNewRecordViewModelFactory }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val c = addNewRecordViewModel.date.value!!

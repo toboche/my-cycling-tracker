@@ -20,27 +20,29 @@ class DashboardViewModel @Inject constructor(
 
     val error = MutableLiveData<String?>()
 
-    val _emptyText = MutableLiveData<String?>()
+    private val _emptyText = MutableLiveData<String?>()
     val emptyText: LiveData<String?> = _emptyText
 
     fun loadTrackRecords() {
         viewModelScope.launch {
             trackRecordRepository.getTrackRecords().apply {
                 when (this) {
-                    is Result.Success -> {
-                        val mappedItems = mapToItem(this.data)
-                        if (mappedItems.isEmpty()) {
-                            _emptyText.value = "no items to show"
-                        } else {
-                            _emptyText.value = null
-                        }
-                        trackRecords.value = mappedItems
-                    }
+                    is Result.Success -> showLoadedItems()
                     is Result.Error -> showErrorReadingData()
                     is Result.Loading -> showLoading()
                 }
             }
         }
+    }
+
+    private fun Result.Success<List<TrackRecord>>.showLoadedItems() {
+        val mappedItems = mapToItem(this.data)
+        if (mappedItems.isEmpty()) {
+            _emptyText.value = "no items to show"
+        } else {
+            _emptyText.value = null
+        }
+        trackRecords.value = mappedItems
     }
 
     private fun mapToItem(data: List<TrackRecord>): List<TrackRecordItem> {

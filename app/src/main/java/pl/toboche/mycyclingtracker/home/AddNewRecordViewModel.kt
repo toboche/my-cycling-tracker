@@ -14,7 +14,7 @@ class AddNewRecordViewModel @Inject constructor(
     private val trackRecordRepository: TrackRecordRepository
 ) : ViewModel() {
 
-    val name = MutableLiveData<String>().apply {
+    val title = MutableLiveData<String>().apply {
         value = ""
     }
     val distance = MutableLiveData<String>().apply {
@@ -46,7 +46,7 @@ class AddNewRecordViewModel @Inject constructor(
     }
 
     fun save() {
-        if (name.value.isNullOrEmpty()) {
+        if (title.value.isNullOrEmpty()) {
             errorText.value = "please provide a title"
             return
         }
@@ -62,13 +62,13 @@ class AddNewRecordViewModel @Inject constructor(
         viewModelScope.launch {
             trackRecordRepository.saveTrackRecord(
                 TrackRecord(
-                    title = name.value.orEmpty(),
+                    title = title.value.orEmpty(),
                     comments = comments.value,
                     date = Date.from(_date.value!!.toInstant()),
                     distance = distanceValue.toDouble()
                 )
             )
-            name.value = ""
+            title.value = ""
             comments.value = ""
             distance.value = ""
         }

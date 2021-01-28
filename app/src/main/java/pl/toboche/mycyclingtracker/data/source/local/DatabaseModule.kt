@@ -13,11 +13,10 @@ object DatabaseModule {
 
     @Provides
     fun provideTrackRecordDatabase(application: Application): TrackRecordDatabase {
-        val result = Room.databaseBuilder(
+        return Room.databaseBuilder(
             application,
             TrackRecordDatabase::class.java, "Tasks.db"
         ).build()
-        return result
     }
 
     @Provides

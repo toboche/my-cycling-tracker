@@ -68,7 +68,7 @@ class AddNewRecordViewModelTest {
 
     @Test
     fun `show error when empty distance`() {
-        systemUnderTest.name.value = "some title"
+        systemUnderTest.title.value = "some title"
 
         systemUnderTest.save()
 
@@ -78,7 +78,7 @@ class AddNewRecordViewModelTest {
 
     @Test
     fun `show error when distance invalid`() {
-        systemUnderTest.name.value = "some title"
+        systemUnderTest.title.value = "some title"
         systemUnderTest.distance.value = "invalid distance"
 
         systemUnderTest.save()
@@ -110,7 +110,7 @@ class AddNewRecordViewModelTest {
             set(Calendar.DAY_OF_MONTH, 12)
         }
         systemUnderTest.setDate(2010, 2, 12)
-        systemUnderTest.name.value = expectedName
+        systemUnderTest.title.value = expectedName
         systemUnderTest.comments.value = expectedComments
         systemUnderTest.distance.value = expectedDistance
         systemUnderTest.setDate(2010, 2, 12)
@@ -138,7 +138,7 @@ class AddNewRecordViewModelTest {
         val expectedComments = "expected comments"
         val expectedDistance = "1.1"
         systemUnderTest.setDate(2010, 2, 12)
-        systemUnderTest.name.value = expectedName
+        systemUnderTest.title.value = expectedName
         systemUnderTest.comments.value = expectedComments
         systemUnderTest.distance.value = expectedDistance
 
@@ -156,7 +156,7 @@ class AddNewRecordViewModelTest {
             )
         }
         assertThat(systemUnderTest.comments.value).isEqualTo("")
-        assertThat(systemUnderTest.name.value).isEqualTo("")
+        assertThat(systemUnderTest.title.value).isEqualTo("")
         assertThat(systemUnderTest.distance.value).isEqualTo("")
     }
 }

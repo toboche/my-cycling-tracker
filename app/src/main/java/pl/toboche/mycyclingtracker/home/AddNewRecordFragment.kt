@@ -22,7 +22,7 @@ class AddNewRecordFragment : Fragment() {
     @Inject
     lateinit var addNewRecordViewModelFactory: AddNewRecordViewModelFactory
 
-    val addNewRecordViewModel: AddNewRecordViewModel by activityViewModels { addNewRecordViewModelFactory }
+    private val addNewRecordViewModel: AddNewRecordViewModel by activityViewModels { addNewRecordViewModelFactory }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,19 +33,19 @@ class AddNewRecordFragment : Fragment() {
         val dateText: TextView = root.findViewById(R.id.add_new_record_date_description)
         val changeDateButton: Button = root.findViewById(R.id.add_new_record_change_date_button)
         val saveButton: Button = root.findViewById(R.id.add_new_record_save_button)
-        val nameEditText: EditText = root.findViewById(R.id.add_new_record_name)
+        val titleEditText: EditText = root.findViewById(R.id.add_new_record_title)
         val distanceEditText: EditText = root.findViewById(R.id.add_new_record_distance)
         val commentsEditText: EditText = root.findViewById(R.id.add_new_record_comments)
 
         observeDateText(dateText)
-        observeNameText(nameEditText)
+        observeTitleText(titleEditText)
         observeDistanceText(distanceEditText)
         observeCommentsText(commentsEditText)
         observeErrorText()
 
         openDatePickerWhenChangeDateButtonClicked(changeDateButton)
         saveEntryWhenSaveButtonClicked(saveButton)
-        updateViewModelWhenNameTextChanged(nameEditText)
+        updateViewModelWhenTitleTextChanged(titleEditText)
         updateViewModelWhenDistanceTextChanged(distanceEditText)
         updateViewModelWhenCommentsChanged(commentsEditText)
         return root
@@ -78,12 +78,12 @@ class AddNewRecordFragment : Fragment() {
         }
     }
 
-    private fun updateViewModelWhenNameTextChanged(nameEditText: EditText) {
-        nameEditText.addTextChangedListener {
+    private fun updateViewModelWhenTitleTextChanged(titleEditText: EditText) {
+        titleEditText.addTextChangedListener {
             if (it == null) {
                 return@addTextChangedListener
             }
-            addNewRecordViewModel.name.value = it.toString()
+            addNewRecordViewModel.title.value = it.toString()
         }
     }
 
@@ -116,10 +116,10 @@ class AddNewRecordFragment : Fragment() {
         })
     }
 
-    private fun observeNameText(nameEditText: EditText) {
-        addNewRecordViewModel.name.observe(viewLifecycleOwner, {
-            if (it != nameEditText.text.toString()) {
-                nameEditText.setText(it)
+    private fun observeTitleText(titleEditText: EditText) {
+        addNewRecordViewModel.title.observe(viewLifecycleOwner, {
+            if (it != titleEditText.text.toString()) {
+                titleEditText.setText(it)
             }
         })
     }

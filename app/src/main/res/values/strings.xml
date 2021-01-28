@@ -3,15 +3,14 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_add_new_record">Add New Record</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
     <string name="add_record_title">Fill in the data to add a new cycling record</string>
-    <string name="record_name_hint">record title</string>
+    <string name="record_title_hint">record title</string>
     <string name="change_date_button_title">change date</string>
     <string name="title">Title:</string>
     <string name="date">Date:</string>
     <string name="comments">Comments:</string>
     <string name="record_comments_hint">put your comments here</string>
     <string name="save_button_title">Save</string>
-    <string name="distance">distance</string>
+    <string name="distance">Distance:</string>
     <string name="record_distance_hint">enter distance</string>
 </resources>

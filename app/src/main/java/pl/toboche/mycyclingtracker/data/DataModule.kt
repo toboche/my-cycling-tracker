@@ -3,7 +3,6 @@ package pl.toboche.mycyclingtracker.data
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.components.SingletonComponent
 import pl.toboche.mycyclingtracker.data.source.DefaultTrackRecordRepository
 import pl.toboche.mycyclingtracker.data.source.LocalTrackRecordDataSource
