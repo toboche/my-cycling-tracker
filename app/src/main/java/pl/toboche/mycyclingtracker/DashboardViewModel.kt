@@ -17,6 +17,8 @@ class DashboardViewModel @Inject constructor(
     val trackRecords: MutableLiveData<List<TrackRecordItem>> =
         MutableLiveData<List<TrackRecordItem>>()
 
+    val error = MutableLiveData<String?>()
+
     fun loadTrackRecords() {
         viewModelScope.launch {
             trackRecordRepository.getTrackRecords().apply {
@@ -49,7 +51,8 @@ class DashboardViewModel @Inject constructor(
     }
 
     private fun showErrorReadingData() {
-        //TODO
+        //this text should be moved to resources or, even better, to some repository
+        error.value = "error loading data"
     }
 
     data class TrackRecordItem(

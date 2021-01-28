@@ -71,6 +71,25 @@ class DashboardViewModelTest {
             )
     }
 
+    @Test
+    fun `show error when loading data`() {
+        val expectedErrorText = "error loading data"
+        givenRepositoryReturnsError()
+
+        systemUnderTest.loadTrackRecords()
+
+        assertThat(systemUnderTest.error.getOrAwaitValue())
+            .isEqualTo(expectedErrorText)
+    }
+
+    private fun givenRepositoryReturnsError() {
+        runBlocking {
+            whenever(mockTrackRecordRepository.getTrackRecords(anyOrNull())).thenReturn(
+                Result.Error(Exception())
+            )
+        }
+    }
+
     private fun givenRepositoryReturnsSingleValue() {
         runBlocking {
             whenever(mockTrackRecordRepository.getTrackRecords(anyOrNull())).thenReturn(
