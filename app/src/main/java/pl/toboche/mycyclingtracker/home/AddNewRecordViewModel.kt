@@ -56,7 +56,7 @@ class AddNewRecordViewModel @Inject constructor(
         }
         val distanceValue = distance.value!!
         if (distanceValue.toDoubleOrNull() == null) {
-            //TODO show error bad input
+            errorText.value = "please provide valid distance"
             return
         }
         viewModelScope.launch {

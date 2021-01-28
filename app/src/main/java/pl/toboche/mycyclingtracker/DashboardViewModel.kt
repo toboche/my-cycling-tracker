@@ -56,7 +56,10 @@ class DashboardViewModel @Inject constructor(
 
 
     private fun showLoading() {
-        //TODO
+        //not needed for now, skipping.
+        // Normally I'd remove this code entirely,
+        // but want to show how things would work id there
+        // was some backend comms required
     }
 
     private fun showErrorReadingData() {
