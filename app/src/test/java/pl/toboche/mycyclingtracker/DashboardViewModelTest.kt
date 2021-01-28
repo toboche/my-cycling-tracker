@@ -52,6 +52,8 @@ class DashboardViewModelTest {
 
         assertThat(systemUnderTest.trackRecords.getOrAwaitValue())
             .isEmpty()
+        assertThat(systemUnderTest.emptyText.getOrAwaitValue())
+            .isEqualTo("no items to show")
     }
 
     @Test
@@ -69,6 +71,8 @@ class DashboardViewModelTest {
                     mockStringDate
                 )
             )
+        assertThat(systemUnderTest.emptyText.getOrAwaitValue())
+            .isNull()
     }
 
     @Test

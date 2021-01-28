@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -27,6 +28,7 @@ class DashboardFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
         val trackRecordsRecyclerView: RecyclerView =
             root.findViewById(R.id.track_records_recycler_view)
+        val emptyListText: TextView = root.findViewById(R.id.empty_list_text)
         trackRecordsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         trackRecordsRecyclerView.addItemDecoration(
             DividerItemDecoration(
@@ -44,6 +46,9 @@ class DashboardFragment : Fragment() {
                 Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
                 dashboardViewModel.error.value = null
             }
+        })
+        dashboardViewModel.emptyText.observe(viewLifecycleOwner, {
+            emptyListText.text = it
         })
         return root
     }

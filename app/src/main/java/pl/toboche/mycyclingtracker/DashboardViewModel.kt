@@ -1,5 +1,6 @@
 package pl.toboche.mycyclingtracker
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -19,13 +20,21 @@ class DashboardViewModel @Inject constructor(
 
     val error = MutableLiveData<String?>()
 
+    val _emptyText = MutableLiveData<String?>()
+    val emptyText: LiveData<String?> = _emptyText
+
     fun loadTrackRecords() {
         viewModelScope.launch {
             trackRecordRepository.getTrackRecords().apply {
                 when (this) {
                     is Result.Success -> {
-                        val mapToItem = mapToItem(this.data)
-                        trackRecords.value = mapToItem
+                        val mappedItems = mapToItem(this.data)
+                        if (mappedItems.isEmpty()) {
+                            _emptyText.value = "no items to show"
+                        } else {
+                            _emptyText.value = null
+                        }
+                        trackRecords.value = mappedItems
                     }
                     is Result.Error -> showErrorReadingData()
                     is Result.Loading -> showLoading()
