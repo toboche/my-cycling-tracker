@@ -29,6 +29,14 @@ class DashboardFragment : Fragment() {
         val trackRecordsRecyclerView: RecyclerView =
             root.findViewById(R.id.track_records_recycler_view)
         val emptyListText: TextView = root.findViewById(R.id.empty_list_text)
+        setUpRecyclerView(trackRecordsRecyclerView)
+        observeTrackRecords(trackRecordsRecyclerView)
+        observeErrorText()
+        observerEmptyListText(emptyListText)
+        return root
+    }
+
+    private fun setUpRecyclerView(trackRecordsRecyclerView: RecyclerView) {
         trackRecordsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         trackRecordsRecyclerView.addItemDecoration(
             DividerItemDecoration(
@@ -36,20 +44,28 @@ class DashboardFragment : Fragment() {
                 DividerItemDecoration.VERTICAL
             )
         )
-        dashboardViewModel.trackRecords.observe(viewLifecycleOwner, {
-            val trackRecordsAdapter = TrackRecordsAdapter(it, requireContext())
-            trackRecordsRecyclerView.adapter = trackRecordsAdapter
+    }
+
+    private fun observerEmptyListText(emptyListText: TextView) {
+        dashboardViewModel.emptyText.observe(viewLifecycleOwner, {
+            emptyListText.text = it
         })
-        dashboardViewModel.loadTrackRecords()
+    }
+
+    private fun observeErrorText() {
         dashboardViewModel.error.observe(viewLifecycleOwner, {
             if (it != null) {
                 Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
                 dashboardViewModel.error.value = null
             }
         })
-        dashboardViewModel.emptyText.observe(viewLifecycleOwner, {
-            emptyListText.text = it
+    }
+
+    private fun observeTrackRecords(trackRecordsRecyclerView: RecyclerView) {
+        dashboardViewModel.trackRecords.observe(viewLifecycleOwner, {
+            val trackRecordsAdapter = TrackRecordsAdapter(it, requireContext())
+            trackRecordsRecyclerView.adapter = trackRecordsAdapter
         })
-        return root
+        dashboardViewModel.loadTrackRecords()
     }
 }

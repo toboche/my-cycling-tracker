@@ -36,48 +36,84 @@ class AddNewRecordFragment : Fragment() {
         val distanceEditText: EditText = root.findViewById(R.id.add_new_record_distance)
         val commentsEditText: EditText = root.findViewById(R.id.add_new_record_comments)
 
-        addNewRecordViewModel.dateText.observe(viewLifecycleOwner) { dateText.text = it }
-        addNewRecordViewModel.name.observe(viewLifecycleOwner, {
-            if (it != nameEditText.text.toString()) {
-                nameEditText.setText(it)
-            }
-        })
-        addNewRecordViewModel.distance.observe(viewLifecycleOwner, {
-            if (it != distanceEditText.text.toString()) {
-                distanceEditText.setText(it)
-            }
-        })
-        addNewRecordViewModel.comments.observe(viewLifecycleOwner, {
-            if (it != commentsEditText.text.toString()) {
-                commentsEditText.setText(it)
-            }
-        })
+        observeDateText(dateText)
+        observeNameText(nameEditText)
+        observeDistanceText(distanceEditText)
+        observeCommentsText(commentsEditText)
 
-        changeDateButton.setOnClickListener {
-            DatePickerFragment()
-                .show(childFragmentManager, "datePicker")
-        }
-        saveButton.setOnClickListener {
-            addNewRecordViewModel.save()
-        }
-        nameEditText.addTextChangedListener {
-            if (it == null) {
-                return@addTextChangedListener
-            }
-            addNewRecordViewModel.name.value = it.toString()
-        }
-        distanceEditText.addTextChangedListener {
-            if (it == null) {
-                return@addTextChangedListener
-            }
-            addNewRecordViewModel.distance.value = it.toString()
-        }
+        openDatePickerWhenChangeDateButtonClicked(changeDateButton)
+        saveEntryWhenSaveButtonClicked(saveButton)
+        updateViewModelWhenNameTextChanged(nameEditText)
+        updateViewModelWhenDistanceTextChanged(distanceEditText)
+        updateViewModelWhenCommentsChanged(commentsEditText)
+        return root
+    }
+
+    private fun updateViewModelWhenCommentsChanged(commentsEditText: EditText) {
         commentsEditText.addTextChangedListener {
             if (it == null) {
                 return@addTextChangedListener
             }
             addNewRecordViewModel.comments.value = it.toString()
         }
-        return root
+    }
+
+    private fun updateViewModelWhenDistanceTextChanged(distanceEditText: EditText) {
+        distanceEditText.addTextChangedListener {
+            if (it == null) {
+                return@addTextChangedListener
+            }
+            addNewRecordViewModel.distance.value = it.toString()
+        }
+    }
+
+    private fun updateViewModelWhenNameTextChanged(nameEditText: EditText) {
+        nameEditText.addTextChangedListener {
+            if (it == null) {
+                return@addTextChangedListener
+            }
+            addNewRecordViewModel.name.value = it.toString()
+        }
+    }
+
+    private fun saveEntryWhenSaveButtonClicked(saveButton: Button) {
+        saveButton.setOnClickListener {
+            addNewRecordViewModel.save()
+        }
+    }
+
+    private fun openDatePickerWhenChangeDateButtonClicked(changeDateButton: Button) {
+        changeDateButton.setOnClickListener {
+            DatePickerFragment()
+                .show(childFragmentManager, "datePicker")
+        }
+    }
+
+    private fun observeCommentsText(commentsEditText: EditText) {
+        addNewRecordViewModel.comments.observe(viewLifecycleOwner, {
+            if (it != commentsEditText.text.toString()) {
+                commentsEditText.setText(it)
+            }
+        })
+    }
+
+    private fun observeDistanceText(distanceEditText: EditText) {
+        addNewRecordViewModel.distance.observe(viewLifecycleOwner, {
+            if (it != distanceEditText.text.toString()) {
+                distanceEditText.setText(it)
+            }
+        })
+    }
+
+    private fun observeNameText(nameEditText: EditText) {
+        addNewRecordViewModel.name.observe(viewLifecycleOwner, {
+            if (it != nameEditText.text.toString()) {
+                nameEditText.setText(it)
+            }
+        })
+    }
+
+    private fun observeDateText(dateText: TextView) {
+        addNewRecordViewModel.dateText.observe(viewLifecycleOwner) { dateText.text = it }
     }
 }
