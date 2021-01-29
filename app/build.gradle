@@ -40,7 +40,6 @@ android {
 }
 
 dependencies {
-
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 
